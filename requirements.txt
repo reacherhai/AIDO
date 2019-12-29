@@ -1,0 +1,5 @@
+chatterbot
+wx
+wave
+pyaudio
+pygame
