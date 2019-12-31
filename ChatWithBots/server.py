@@ -196,6 +196,10 @@ class ChatRoom(Room):
         # 图灵回复消息
         self.broadcast(('Tuling: ' + line + '\n').encode("utf-8"))
 
+    def do_sizhi_say(self, session, line):
+        # 图灵回复消息
+        self.broadcast(('Sizhi: ' + line + '\n').encode("utf-8"))
+
     def do_look(self, session, line):
         # 查看在线用户
         session.push(b'All Online Users Are:\n')

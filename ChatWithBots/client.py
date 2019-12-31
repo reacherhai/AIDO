@@ -2,7 +2,7 @@ import wx
 import telnetlib
 from time import sleep
 # import _thread as thread
-from chatbot import baidu_api2, chatbot, tuling, play_mp3, remove_voice, getText
+from chatbot import baidu_api2, chatbot, tuling, play_mp3, remove_voice, getText,sizhi
 from config import BOT, default_server, VOICE_SWITCH
 from recorder import *
 import threading
@@ -126,6 +126,11 @@ class ChatFrame(wx.Frame):
                 self.message.Clear()
                 con.write(('noone_say You have been changed TuLing-Chat' + '\n').encode("utf-8"))
                 return
+            elif message == "sizhi":
+                bot_use = "SiZhi"
+                self.message.Clear()
+                con.write(('noone_say You have been changed Sizhi-Chat' + '\n').encode("utf-8"))
+                return
             elif message == "user":
                 bot_use = "User"
                 self.message.Clear()
@@ -140,6 +145,9 @@ class ChatFrame(wx.Frame):
             elif bot_use == "TuLing":
                 answer = tuling(message)
                 con.write(('tuling_say ' + answer + '\n').encode("utf-8"))
+            elif bot_use == "SiZhi":
+                answer = sizhi(message)
+                con.write(('sizhi_say ' + answer + '\n').encode("utf-8"))
             elif bot_use == "User":
                 return
 

@@ -9,9 +9,10 @@ import random
 import urllib.request
 import base64
 
-
+if not os.path.exists("voices"):  # 是否存在，不存在则创建
+    os.makedirs("voices")
 # 初始化百度返回的音频文件地址，后面会变为全局变量，随需改变
-mp3_url = r'E:\Python_Doc\voice_du\voice_ss.mp3'
+mp3_url = r'voices\voice_ss.mp3'
 
 
 # 播放Mp3文件
@@ -28,7 +29,7 @@ def play_mp3():
 
 # 删除声音文件
 def remove_voice():
-    path = r"E:\Python_Doc\voice_du"
+    path = r"voices"
     for i in os.listdir(path):
         path_file = os.path.join(path, i)
         try:
@@ -43,6 +44,26 @@ def tuling(info):
     content = requests.get(url, headers=headers)
     answer = json.loads(content.text)
     return answer['text']
+
+def get_data(text):
+  # 请求思知机器人API所需要的一些信息
+    data = {
+        "appid": "96e172cabcf3b21089395c484b65668e",
+        "userid": "BluqL2PT",
+        "spoken": text,
+    }
+    return data
+
+
+def sizhi(text):
+    # 获取思知机器人的回复信息
+    data = get_data(text)
+    url = 'https://api.ownthink.com/bot'  # API接口
+    response = requests.post(url=url, data=data, headers=headers)
+    response.encoding = 'utf-8'
+    result = response.json()
+    answer = result['data']['info']['text']
+    return answer
 
 
 # 聊天机器人回复
@@ -63,7 +84,7 @@ def baidu_api(answer):
     # 本地Mp3语音文件保存位置
     iname = random.randrange(1, 99999)
     global mp3_url
-    mp3_url = r'E:\Python_Doc\voices\voice_tts' + str(iname) + '.mp3'
+    mp3_url = r'voices\voice_tts' + str(iname) + '.mp3'
     with open(mp3_url, 'wb') as f:
         f.write(res.content)
 
@@ -77,7 +98,7 @@ def baidu_api2(answer):
     # 本地Mp3语音文件保存位置
     name = random.randrange(1, 99999)
     global mp3_url
-    mp3_url = r'E:\Python_Doc\voice_du\voice_tsn' + str(name) + '.mp3'
+    mp3_url = r'voice_tsn' + str(name) + '.mp3'
     voice_fp = open(mp3_url, 'wb+')
     voice_fp.write(voice_data)
     voice_fp.close()
