@@ -99,6 +99,9 @@
         // Clear the input field
         // $input.val('');
 
+        var myaudio = new Audio('media/' + statement.audioname)
+        myaudio.play();
+
         // Scroll to the bottom of the chat interface
         $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
       });

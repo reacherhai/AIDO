@@ -17,3 +17,5 @@ venv
 *.sqlite3
 __pycache__
 *.pickle
+
+media/voice_ss.mp3

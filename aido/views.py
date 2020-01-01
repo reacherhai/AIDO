@@ -37,11 +37,14 @@ class ChatterBotApiView(View):
         response = self.chatterbot.get_response(input_data['text'])
 
         # response_data = response.serialize()
-        response_data = response
+        self.chatterbot.text2voice(response)
 
         return JsonResponse({
             'text': [
-                response_data
+                response
+            ],
+            'audioname': [
+                'voice_ss.mp3'
             ]
         }, status=200, safe=False)
 

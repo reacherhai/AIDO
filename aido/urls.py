@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^api/chatterbot/', ChatterBotApiView.as_view(), name='chatterbot'),
 ]
 
+# https://overiq.com/django-1-10/handling-media-files-in-django/
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
