@@ -33,7 +33,7 @@ INSTALLED_APPS = (
 # ChatterBot settings
 
 CHATTERBOT = {
-    'name': 'Django ChatterBot Example',
+    'name': 'AIDO',
     'django_app_name': 'aido'
 }
 
@@ -102,5 +102,15 @@ STATICFILES_DIRS = (
     os.path.join(
         os.path.dirname(__file__),
         'static',
+    ),
+)
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = 'media/'
+
+MEDIA_DIRS = (
+    os.path.join(
+        os.path.dirname(__file__),
+        'media',
     ),
 )

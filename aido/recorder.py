@@ -5,8 +5,7 @@ from pyaudio import PyAudio, paInt16
 import numpy as np
 import wave
 
-
-class Recoder:
+class Recorder:
     NUM_SAMPLES = 2000      # py audio内置缓冲大小
     SAMPLING_RATE = 16000    # 取样频率
     LEVEL = 500         # 声音保存的阈值
@@ -25,7 +24,7 @@ class Recoder:
         # wf.writeframes(self.Voice_String.decode())
         wf.close()
 
-    def recoder(self):
+    def recorder(self):
         pa = PyAudio()
         stream = pa.open(format=paInt16, channels=1, rate=self.SAMPLING_RATE, input=True,
                          frames_per_buffer=self.NUM_SAMPLES)
@@ -63,21 +62,17 @@ class Recoder:
                 if len(save_buffer) > 0:
                     self.Voice_String = save_buffer
                     save_buffer = []
-                    print("Recode a piece of  voice successfully!")
+                    print("Recode a piece of voice successfully!")
                     return True
             if time_count == 0:
                 if len(save_buffer) > 0:
                     self.Voice_String = save_buffer
                     save_buffer = []
-                    print("Recode a piece of  voice successfully!")
+                    print("Recode a piece of voice successfully!")
                     return True
                 else:
                     return False
 
-
-def recording():
-    r = Recoder()
-    r.recoder()
-    r.savewav(r"voice_say/say_voice.wav")
-    # if tsayTime != '':
-    #     stop_thread(tsayTime)
+    def recording(self,filename):
+        self.recorder()
+        self.savewav(filename)

@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>Django ChatterBot Example</title>
+  <title>AIDO~</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
   <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 </head>
@@ -15,22 +15,24 @@
   <div class="container">
 
     <div class="jumbotron mt-1">
-      <h1 class="jumbotron-heading text-xs-center">Django ChatterBot Example</h1>
-      <p class="lead text-xs-center">
+      <h1 class="jumbotron-heading text-xs-center">AIDO 你的管家小精灵~</h1>
+      <!-- <p class="lead text-xs-center">
         This is a web app that allows you to talk to ChatterBot.
-      </p>
+      </p> -->
 
       <hr class="my-2">
 
       <div class="row">
         <div class="col-xs-6 offset-xs-3">
-          <ul class="list-group chat-log js-chat-log">
-          </ul>
+          <ul class="list-group chat-log js-chat-log"></ul>
 
           <div class="input-group input-group-lg mt-1">
+            <span class="input-group-btn">
+              <button class="btn btn-danger js-say">Say</button>
+            </span>
             <input type="text" class="form-control js-text" placeholder="Type something to begin..." />
             <span class="input-group-btn">
-              <button class="btn btn-primary js-say">Submit</button>
+              <button class="btn btn-primary js-submit">Submit</button>
             </span>
           </div>
 
@@ -61,8 +63,9 @@
       }
     });
 
-    var $chatlog = $('.js-chat-log');
+    var $chatlog = $('.js-chat-log'); // class selector
     var $input = $('.js-text');
+    var $submitButton = $('.js-submit');
     var $sayButton = $('.js-say');
 
     function createRow(text) {
@@ -76,6 +79,9 @@
       var inputData = {
         'text': $input.val()
       }
+
+      // Clear the input field immediately
+      $input.val('');
 
       // Display the user's input on the web page
       createRow(inputData.text);
@@ -91,7 +97,7 @@
         createRow(statement.text);
 
         // Clear the input field
-        $input.val('');
+        // $input.val('');
 
         // Scroll to the bottom of the chat interface
         $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
@@ -102,7 +108,17 @@
       });
     }
 
+    function sayInput() {
+      // TODO
+      var myaudio = new Audio('media/test.mp3');
+      myaudio.play();
+    }
+
     $sayButton.click(function () {
+      sayInput();
+    });
+
+    $submitButton.click(function () {
       submitInput();
     });
 
