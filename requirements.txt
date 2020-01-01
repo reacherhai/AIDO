@@ -1,6 +1,2 @@
-pygame==1.9.6
-requests==2.14.2
-PyAudio==0.2.11
-numpy==1.14.2
-chatterbot==1.0.5
-wxPython
+django>=2.2,<2.3
+chatterbot>=0.8,<1.1
