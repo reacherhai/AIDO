@@ -1,9 +1,9 @@
 # coding=utf-8
 import re
 from datetime import datetime
-from cn2num import chinese_to_arabic
-def grabdate(text):
+from aido.cn2num import chinese_to_arabic
 
+def grabdate(text):
     match = re.search(r'\d{4}年\d{1,2}月\d{1,2}日', text)
     if(not match):
         return ""
@@ -22,7 +22,6 @@ text = "2020年2月10日上午十点去健身"
 #print(grabdate(text))
 
 def grabPriority(text):
-
     index = text.find("优先级")
     if(index != -1):
         priority = int(text[index + 3])

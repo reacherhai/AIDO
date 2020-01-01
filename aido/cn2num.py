@@ -53,5 +53,3 @@ def chinese_to_arabic(cn) :
             tmp += x
     val += tmp
     return val
-
-print(chinese_to_arabic('8'))
