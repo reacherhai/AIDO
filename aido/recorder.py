@@ -78,6 +78,6 @@ class Recoder:
 def recording():
     r = Recoder()
     r.recoder()
-    r.savewav(r"D:\Python_Doc\voice_say\say_voice.wav")
+    r.savewav(r"voice_say/say_voice.wav")
     # if tsayTime != '':
     #     stop_thread(tsayTime)
