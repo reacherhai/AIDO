@@ -49,6 +49,40 @@ class ChatBot(object):
         answer = answer.replace('小思','小海')
         return answer
 
+    def sizhi(self,text):
+        # 获取思知机器人的回复信息
+        # command = getcommand(text)
+        if (text == "todo"):
+            output = subprocess.check_output(["todo"], shell=False).decode("utf-8")
+            return output
+        if (grabdate(text)):
+            command = getcommand(text)
+            # output = subprocess.check_output(command, shell=False).decode("utf-8")
+            # return output
+            try:
+                output = subprocess.check_output(command, shell=False).decode("utf-8")
+            except:
+                return ("添加的事项输入有问题哦")
+
+            output = subprocess.check_output(["todo"], shell=False).decode("utf-8")
+            return "帮您记录好啦\n" + output
+        if (grabdel(text)):
+            command = getdel(text)
+            try:
+                output = subprocess.check_output(command, shell=False).decode("utf-8")
+            except:
+                return ("┗|｀O′|┛ 嗷~~删除的信息不存在，请输入正确的删除信息(删除+数字)")
+            output = subprocess.check_output(["todo"], shell=False).decode("utf-8")
+            return "已删除~\n" + output
+
+        data = self.get_data(text)
+        url = 'https://api.ownthink.com/bot'  # API接口
+        response = requests.post(url=url, data=data, headers=headers)
+        response.encoding = 'utf-8'
+        result = response.json()
+        answer = result['data']['info']['text']
+        return answer
+
     def text2voice(self,answer):
         # 获取access_token
         print("text2voice")
