@@ -56,8 +56,7 @@ class ChatBot(object):
             for i in range(MAXWORK):
                 command = "todo done " + str(i)
                 try:
-                    #output = os.popen(command).read()
-                    output = subprocess.check_output(command)
+                    output = os.popen(command).read()
                 except:
                     pass
             return "已为您清除所有任务"
