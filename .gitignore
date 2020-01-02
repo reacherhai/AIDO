@@ -20,3 +20,4 @@ __pycache__
 *.pickle
 
 media/voice_ss.mp3
+fixtures/ipconfig.yaml

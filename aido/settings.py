@@ -1,5 +1,6 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import yaml
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -12,9 +13,6 @@ SECRET_KEY = 'fsch+6!=q+@ol&%0x!nwdl@48^ixbd4clx5f1i!5n^66y+pmn*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -112,3 +110,17 @@ MEDIA_DIRS = (
         'media',
     ),
 )
+
+FIXTURE_DIRS = (
+    os.path.join(
+        os.path.dirname(__file__),
+        'fixtures',
+    ),
+)
+
+ipconfig = yaml.load(open('fixtures/ipconfig.yaml'))
+host = ipconfig.get("host","")
+if host == "":
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = [host]
