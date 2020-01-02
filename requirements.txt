@@ -1,2 +1,5 @@
-django>=2.2,<2.3
-chatterbot>=0.8,<1.1
+ChatterBot==1.0.5
+numpy==1.18.0
+PyAudio==0.2.11
+requests==2.22.0
+Django==2.2.9
