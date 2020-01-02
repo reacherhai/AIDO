@@ -14,7 +14,9 @@
 
   <div class="container">
 
-    <div class="jumbotron mt-1">
+    <div
+
+    class="jumbotron mt-1">
       <h1 class="jumbotron-heading text-xs-center">AIDO 你的管家小精灵~</h1>
       <!-- <p class="lead text-xs-center">
         This is a web app that allows you to talk to ChatterBot.
@@ -30,7 +32,7 @@
             <span class="input-group-btn">
               <button class="btn btn-danger js-say">Say</button>
             </span>
-            <input type="text" class="form-control js-text" placeholder="Type something to begin..." />
+            <input type="text" class="form-control js-text" placeholder="Type in your schedule here..." />
             <span class="input-group-btn">
               <button class="btn btn-primary js-submit">Submit</button>
             </span>
@@ -40,6 +42,8 @@
       </div>
 
     </div>
+
+    <img src="{% static 'img/aido.png' %}" width="200" height="280" class="d-inline-block" align="right" alt="aido">
 
   </div>
 
@@ -73,6 +77,7 @@
 
       var row_text = $row.text(text);
       row_text.html(row_text.html().replace(/\n/g, '<br/>'));
+      $row.prepend('<img src="{% static "img/chatterbot.png" %}" width = "30" height = "30" class= "d-inline-block align-top" alt = "ChatterBot" >');
       $chatlog.append($row);
     }
 
@@ -81,11 +86,16 @@
         'text': $input.val()
       }
 
+      // Display the user's input on the web page
+      var $row = $('<li class="list-group-item"></li>');
+
+      var row_text = $row.text('  ' + $input.val());
+      row_text.html(row_text.html().replace(/\n/g, '<br/>'));
+      $row.prepend('<img src="{% static "img/you.jpg" %}" width = "30" height = "30" class= "d-inline-block align-top" alt = "you" >');
+      $chatlog.append($row);
+
       // Clear the input field immediately
       $input.val('');
-
-      // Display the user's input on the web page
-      createRow(inputData.text);
 
       var $submit = $.ajax({
         type: 'POST',
