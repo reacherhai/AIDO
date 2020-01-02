@@ -32,7 +32,7 @@
             <span class="input-group-btn">
               <button class="btn btn-danger js-say">Say</button>
             </span>
-            <input type="text" class="form-control js-text" placeholder="Type in your schedule here..." />
+            <input type="text" class="form-control js-text" placeholder="Type or say something here..." />
             <span class="input-group-btn">
               <button class="btn btn-primary js-submit">Submit</button>
             </span>
@@ -123,9 +123,9 @@
     }
 
     function sayInput() {
-      // TODO
-      var myaudio = new Audio('media/test.mp3');
-      myaudio.play();
+      // var myaudio = new Audio('media/test.mp3');
+      // myaudio.play();
+      alert("Oops，您的设备似乎没有办法语音输入哦");
     }
 
     $sayButton.click(function () {

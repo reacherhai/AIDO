@@ -2,6 +2,7 @@
 import re
 
 def deal_control_char(s):
+	s = re.sub(r"\x1b\[32m","",s)
 	s = re.sub(r"\x1b\[33m","",s)
 	s = re.sub(r"\x1b\[0m","",s)
 	s = re.sub(r"\x1b\[36m","",s)
