@@ -9,6 +9,7 @@ import urllib.request
 import base64
 from aido.grabtext import *
 import subprocess
+import string
 from aido.delCmdCh import deal_control_char
 
 
@@ -41,17 +42,19 @@ class ChatBot(object):
         return data
 
     def get_response(self,text,voice_flag=False):
+        prefix = "  "
         if not voice_flag:
             data = self.get_data(text)
         else:
             self.recording()
             text = self.voice2text()
             data = self.get_data(text)
+
         if (text == "todo"):
             output = os.popen("todo").read()
             output = deal_control_char(output)
             print(output)
-            return output
+            return prefix + output
 
         if(text == "setup"):
             for i in range(MAXWORK):
@@ -60,7 +63,13 @@ class ChatBot(object):
                     output = os.popen(command).read()
                 except:
                     pass
-            return "已为您清除所有任务"
+            for i in string.ascii_lowercase:
+                command = "todo done " + i
+                try:
+                    output = os.popen(command).read()
+                except:
+                    pass
+            return prefix + "已为您清除所有任务"
 
         if (grabdate(text)):
             command = getcommand(text)
@@ -68,31 +77,34 @@ class ChatBot(object):
             try:
                 output = os.popen(command).read()
             except:
-                return ("添加的事项输入有问题哦")
+                return prefix + "添加的事项输入有问题哦"
 
             output = os.popen("todo").read()
             output = deal_control_char(output)
             print(output)
-            return "帮您记录好啦\n" + output
+            return prefix + "帮您记录好啦\n" + output
         if (grabdel(text)):
             command = getdel(text)
             try:
                 output = os.popen(command).read()
             except:
-                return ("┗|｀O′|┛ 嗷~~删除的信息不存在，请输入正确的删除信息(删除+数字)")
+                return prefix + "┗|｀O′|┛ 嗷~~删除的信息不存在，请输入正确的删除信息(删除+数字/字母)"
             output = os.popen("todo").read()
             output = deal_control_char(output)
             print(output)
-            return "已删除~\n" + output
+            return prefix + "已删除~\n" + output
 
         data = self.get_data(text)
         url = 'https://api.ownthink.com/bot'  # API接口
-        response = requests.post(url=url, data=data, headers=headers)
-        response.encoding = 'utf-8'
-        result = response.json()
-        answer = result['data']['info']['text']
+        try:
+            response = requests.post(url=url, data=data, headers=headers,timeout=10)
+            response.encoding = 'utf-8'
+            result = response.json()
+            answer = result['data']['info']['text']
+        except:
+            answer = "LoL 小思有点忙..."
         answer = answer.replace('小思','小海')
-        return answer
+        return prefix + answer
 
     def text2voice(self,answer):
         # 获取access_token
@@ -126,7 +138,7 @@ class ChatBot(object):
         post_data = json.dumps(data)
         # 语音识别的api url
         upvoice_url = 'http://vop.baidu.com/server_api'
-        r_data = urllib.request.urlopen(upvoice_url, data=bytes(post_data, encoding="utf-8")).read()
+        r_data = urllib.request.urlopen(upvoice_url, data=bytes(post_data, encoding="utf-8"),timeout=10).read()
         print(json.loads(r_data))
         err = json.loads(r_data)['err_no']
         if err == 0:
