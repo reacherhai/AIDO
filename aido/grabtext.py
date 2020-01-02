@@ -18,7 +18,7 @@ def grabdate(text):
     date = datetime.strptime(final, '%Y-%m-%d').date()
     return date
 
-text = "2020年2月10日上午十点去健身"
+# text = "2020年2月10日上午十点去健身"
 #print(grabdate(text))
 
 def grabPriority(text):
@@ -60,18 +60,3 @@ def getcommand(text):
     return string
 
 #todo add "fix the door" --deadline 2020-02-29
-
-'''
-import os
-command = getcommand(text)
-d = os.system(command)
-print(d)
-d = os.system("todo")
-print(d)
-exit(0)
-
-print(grabdate(text))
-date = datetime.strptime(grabdate(text), '%Y-%m-%d').date()
-print(date)
-#print(date)
-'''

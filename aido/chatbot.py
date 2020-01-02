@@ -3,7 +3,7 @@ import os
 import requests
 import json
 from aido.config import *
-from aido.recorder import Recorder
+# # from aido.recorder import Recorder
 import random
 import urllib.request
 import base64
@@ -27,7 +27,7 @@ class ChatBot(object):
     def __init__(self):
         self.name = "AIDO"
         self.voice_url = r'media/voice_ss.mp3'
-        self.recorder = Recorder()
+        # # self.recorder = Recorder()
 
     def get_data(self,text):
     # 请求思知机器人API所需要的一些信息
@@ -48,6 +48,7 @@ class ChatBot(object):
         if (text == "todo"):
             output = os.popen("todo").read()
             output = deal_control_char(output)
+            print(output)
             return output
         if (grabdate(text)):
             command = getcommand(text)
@@ -59,6 +60,7 @@ class ChatBot(object):
 
             output = os.popen("todo").read()
             output = deal_control_char(output)
+            print(output)
             return "帮您记录好啦\n" + output
         if (grabdel(text)):
             command = getdel(text)
@@ -68,6 +70,7 @@ class ChatBot(object):
                 return ("┗|｀O′|┛ 嗷~~删除的信息不存在，请输入正确的删除信息(删除+数字)")
             output = os.popen("todo").read()
             output = deal_control_char(output)
+            print(output)
             return "已删除~\n" + output
 
         data = self.get_data(text)
@@ -92,7 +95,8 @@ class ChatBot(object):
         return
 
     def recording(self):
-        self.recorder.recording(self.voice_url)
+        pass
+        # self.recorder.recording(self.voice_url)
 
     def voice2text(self):
         # 获取access_token
