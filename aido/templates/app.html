@@ -71,7 +71,8 @@
     function createRow(text) {
       var $row = $('<li class="list-group-item"></li>');
 
-      $row.text(text);
+      var row_text = $row.text(text);
+      row_text.html(row_text.html().replace(/\n/g, '<br/>'));
       $chatlog.append($row);
     }
 
