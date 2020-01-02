@@ -12,6 +12,8 @@ import subprocess
 from aido.delCmdCh import deal_control_char
 
 
+MAXWORK = 100
+
 # 获取百度API调用的认证，实时生成，因为有时间限制
 def getToken():
     # token认证的url
@@ -50,6 +52,16 @@ class ChatBot(object):
             output = deal_control_char(output)
             print(output)
             return output
+
+        if(text == "setup"):
+            for i in range(MAXWORK):
+                command = "todo done " + str(i)
+                try:
+                    output = os.popen(command).read()
+                except:
+                    pass
+            return "已为您清除所有任务"
+
         if (grabdate(text)):
             command = getcommand(text)
             # return output
