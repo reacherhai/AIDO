@@ -9,6 +9,8 @@ import urllib.request
 import base64
 from aido.grabtext import *
 import subprocess
+from aido.delCmdCh import deal_control_char
+
 
 # 获取百度API调用的认证，实时生成，因为有时间限制
 def getToken():
@@ -45,6 +47,7 @@ class ChatBot(object):
             data = self.get_data(text)
         if (text == "todo"):
             output = os.popen("todo").read()
+            output = deal_control_char(output)
             return output
         if (grabdate(text)):
             command = getcommand(text)
@@ -55,6 +58,7 @@ class ChatBot(object):
                 return ("添加的事项输入有问题哦")
 
             output = os.popen("todo").read()
+            output = deal_control_char(output)
             return "帮您记录好啦\n" + output
         if (grabdel(text)):
             command = getdel(text)
@@ -63,6 +67,7 @@ class ChatBot(object):
             except:
                 return ("┗|｀O′|┛ 嗷~~删除的信息不存在，请输入正确的删除信息(删除+数字)")
             output = os.popen("todo").read()
+            output = deal_control_char(output)
             return "已删除~\n" + output
 
         data = self.get_data(text)
