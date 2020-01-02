@@ -8,10 +8,18 @@ import random
 import urllib.request
 import base64
 from aido.grabtext import *
-import subprocess
+import logging
+# import subprocess
 import string
 from aido.delCmdCh import deal_control_char
 
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler("aido.log")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 MAXWORK = 100
 
@@ -33,7 +41,6 @@ class ChatBot(object):
         # # self.recorder = Recorder()
 
     def get_data(self,text):
-    # 请求思知机器人API所需要的一些信息
         data = {
             "appid": "96e172cabcf3b21089395c484b65668e",
             "userid": "BluqL2PT",
@@ -53,22 +60,14 @@ class ChatBot(object):
         if (text == "todo"):
             output = os.popen("todo").read()
             output = deal_control_char(output)
-            print(output)
-            return prefix + output
+            logger.info(output)
+            if output != "":
+                return prefix + "您的待办事项有以下这些哦：\n" + output
+            else:
+                return prefix + "您没有待办事项哦~"
 
         if(text == "setup"):
-            for i in range(MAXWORK):
-                command = "todo done " + str(i)
-                try:
-                    output = os.popen(command).read()
-                except:
-                    pass
-            for i in string.ascii_lowercase:
-                command = "todo done " + i
-                try:
-                    output = os.popen(command).read()
-                except:
-                    pass
+            os.popen("rm -rf ~/.toduh")
             return prefix + "已为您清除所有任务"
 
         if (grabdate(text)):
@@ -81,7 +80,7 @@ class ChatBot(object):
 
             output = os.popen("todo").read()
             output = deal_control_char(output)
-            print(output)
+            logger.info(output)
             return prefix + "帮您记录好啦\n" + output
         if (grabdel(text)):
             command = getdel(text)
@@ -91,7 +90,7 @@ class ChatBot(object):
                 return prefix + "┗|｀O′|┛ 嗷~~删除的信息不存在，请输入正确的删除信息(删除+数字/字母)"
             output = os.popen("todo").read()
             output = deal_control_char(output)
-            print(output)
+            logger.info(output)
             return prefix + "已删除~\n" + output
 
         data = self.get_data(text)
@@ -103,19 +102,20 @@ class ChatBot(object):
             answer = result['data']['info']['text']
         except:
             answer = "LoL 小思有点忙..."
-        answer = answer.replace('小思','小海')
+        logger.info("Q: {}".format(text)) # used for logging
+        logger.info("A: {}".format(answer))
         return prefix + answer
 
     def text2voice(self,answer):
         # 获取access_token
-        print("text2voice")
+        logger.info("text2voice")
         token = getToken()
         get_url = baidu_api_url2 % (urllib.parse.quote(answer), "test", token)
         voice_data = urllib.request.urlopen(get_url).read()
         voice_fp = open(self.voice_url, 'wb+')
         voice_fp.write(voice_data)
         voice_fp.close()
-        print("Done writing audio file!")
+        logger.info("Done writing audio file!")
         return
 
     def recording(self):
@@ -139,7 +139,7 @@ class ChatBot(object):
         # 语音识别的api url
         upvoice_url = 'http://vop.baidu.com/server_api'
         r_data = urllib.request.urlopen(upvoice_url, data=bytes(post_data, encoding="utf-8"),timeout=10).read()
-        print(json.loads(r_data))
+        logger.info(json.loads(r_data))
         err = json.loads(r_data)['err_no']
         if err == 0:
             return json.loads(r_data)['result'][0]
