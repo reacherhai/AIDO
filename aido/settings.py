@@ -111,6 +111,8 @@ MEDIA_DIRS = (
     ),
 )
 
+FIXTURE_URL = 'fixtures/'
+FIXTURE_ROOT = 'fixtures/'
 FIXTURE_DIRS = (
     os.path.join(
         os.path.dirname(__file__),

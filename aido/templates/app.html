@@ -123,9 +123,28 @@
     }
 
     function sayInput() {
-      // var myaudio = new Audio('media/test.mp3');
-      // myaudio.play();
-      alert("Oops，您的设备似乎没有办法语音输入哦");
+      // try {
+      //   var $submit = $.ajax({
+      //     type: 'POST',
+      //     url: chatterbotUrl,
+      //     data: 'voice',
+      //     contentType: 'application/json'
+      //   });
+
+      //   $submit.done(function (statement) {
+      //     createRow(statement.text);
+
+      //     var myaudio = new Audio('media/' + statement.audioname)
+      //     myaudio.play();
+
+      //     // Scroll to the bottom of the chat interface
+      //     $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
+      //   });
+      // }
+      // catch (err) {
+      //   alert("Oops，您的设备似乎没有办法语音输入哦");
+      // }
+        alert("Oops，您的设备似乎没有办法语音输入哦");
     }
 
     $sayButton.click(function () {
