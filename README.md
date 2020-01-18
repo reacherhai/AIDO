@@ -1,6 +1,8 @@
 # AIDO
 
-AIDO (Ideo) is an AI that helps you mange your schedules.
+AIDO (Idol) is an AI chatbot that helps you manage your schedules.
+
+![aido](https://github.com/chhzh123/Assignments/blob/master/DatabaseSystems/Project/fig/overview.png)
 
 ## Installation
 ```bash
